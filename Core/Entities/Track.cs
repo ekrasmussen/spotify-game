@@ -9,7 +9,9 @@ namespace Core.Entities
     public class Track
     {
         public int Id { get; set; }
+        public string ExternalId { get; set; } = string.Empty;
         public string Title { get; set; } = string.Empty;
-        public string Artist { get; set; } = string.Empty;
+        public string ArtistsWashed { get; set; } = string.Empty;
+        public DateTimeOffset AddedOn { get; set; }
     }
 }

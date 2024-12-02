@@ -26,6 +26,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Application.SPG\Application.SPG.csproj" />
     <ProjectReference Include="..\Persistence\Persistence.csproj" />
+    <ProjectReference Include="..\Spotify.SPG\Spotify.SPG.csproj" />
   </ItemGroup>
 
   <ItemGroup>

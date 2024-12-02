@@ -7,7 +7,7 @@ namespace SPG.Controllers
     public class PlaylistsController : ControllerBase<PlaylistsController>
     {
         [HttpGet]
-        [Route("{id:string}")]
+        [Route("{id}")]
         public async Task<Unit> MirrorPlaylistsFromUserId(string id)
         {
             return await Mediator.Send(new MirrorPlaylistsFromUserIdCommand() { Id = id });

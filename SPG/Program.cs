@@ -3,6 +3,7 @@ using Persistence;
 using Persistence.SPG;
 using Application.SPG;
 using Application.SPG.Common.Options;
+using Spotify.SPG;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,7 +12,7 @@ builder.Services.Configure<FeatureFlagOptions>(builder.Configuration.GetSection(
 builder.Services.Configure<DatabaseOptions>(builder.Configuration.GetSection(DatabaseOptions.SECTION));
 
 builder.Services.AddApplicationSpg(config);
-
+builder.Services.AddSpotifyIntegrationSPG(config);
 
 builder.Services.AddPersistenceSPG(config);
 

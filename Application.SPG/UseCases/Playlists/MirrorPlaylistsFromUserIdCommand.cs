@@ -1,4 +1,5 @@
-﻿using Core.Common.Interfaces;
+﻿using Application.SPG.Interfaces;
+using Core.Common.Interfaces;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace Application.SPG.UseCases.Playlists
     {
         public string Id { get; set; } = string.Empty;
 
-        public class MirrorPlaylistsFromUserIdCommandHandler(ISPGContext context) : IRequestHandler<MirrorPlaylistsFromUserIdCommand, Unit>
+        public class MirrorPlaylistsFromUserIdCommandHandler(ISPGContext context, ISpotifyClient client) : IRequestHandler<MirrorPlaylistsFromUserIdCommand, Unit>
         {
             public async Task<Unit> Handle(MirrorPlaylistsFromUserIdCommand command, CancellationToken cancellationToken)
             {

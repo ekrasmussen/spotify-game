@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Application.SPG.UseCases.Playlists;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace SPG.Controllers
@@ -6,9 +7,10 @@ namespace SPG.Controllers
     public class PlaylistsController : ControllerBase<PlaylistsController>
     {
         [HttpGet]
-        public async Task<bool> GetPlaylistsFromId(string id)
+        [Route("{id:string}")]
+        public async Task<Unit> MirrorPlaylistsFromUserId(string id)
         {
-            return true;
+            return await Mediator.Send(new MirrorPlaylistsFromUserIdCommand() { Id = id });
         }
     }
 }

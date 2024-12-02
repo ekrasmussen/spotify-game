@@ -17,6 +17,7 @@ namespace Application.SPG.UseCases.Playlists
         {
             public async Task<Unit> Handle(MirrorPlaylistsFromUserIdCommand command, CancellationToken cancellationToken)
             {
+                await client.TestAccessToken();
                 return Unit.Value;
             }
         }

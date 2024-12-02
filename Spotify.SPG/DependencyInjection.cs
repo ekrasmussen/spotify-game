@@ -10,7 +10,7 @@ namespace Spotify.SPG
         {
             services.AddHttpClient<ISpotifyClient, SpotifyClient>(client =>
             {
-                client.BaseAddress = new Uri("https://api.spotify.com/v1");
+                client.BaseAddress = new Uri("https://api.spotify.com");
             });
 
             return services;

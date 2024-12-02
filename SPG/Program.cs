@@ -10,6 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;
 builder.Services.Configure<FeatureFlagOptions>(builder.Configuration.GetSection(FeatureFlagOptions.SECTION));
 builder.Services.Configure<DatabaseOptions>(builder.Configuration.GetSection(DatabaseOptions.SECTION));
+builder.Services.Configure<SpotifyClientOptions>(builder.Configuration.GetSection(SpotifyClientOptions.SECTION));
 
 builder.Services.AddApplicationSpg(config);
 builder.Services.AddSpotifyIntegrationSPG(config);

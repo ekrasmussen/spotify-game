@@ -13,6 +13,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Responses\" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Application.SPG\Application.SPG.csproj" />
   </ItemGroup>
 

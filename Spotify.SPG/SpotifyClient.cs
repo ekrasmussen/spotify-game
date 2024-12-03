@@ -1,7 +1,9 @@
-﻿using Application.SPG.Common.Options;
+﻿using Application.SPG.Common.Interfaces;
+using Application.SPG.Common.Options;
 using Application.SPG.Interfaces;
 using Core.Entities;
 using Microsoft.Extensions.Options;
+using Spotify.SPG.Responses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,19 +15,38 @@ namespace Spotify.SPG
 {
     public class SpotifyClient : ISpotifyClient
     {
+        private static readonly JsonSerializerOptions _deserializerOptions = new() { PropertyNameCaseInsensitive = true };
         private readonly IHttpClientHandler _clientHandler;
         private readonly SpotifyClientOptions _options;
         private SpotifyAccessToken? _accessToken;
-        private DateTimeOffset _lastUpdated;
-        public SpotifyClient(HttpClient client, IOptions<SpotifyClientOptions> options)
+        private readonly IMasterCache _cache;
+
+        public SpotifyClient(HttpClient client, IOptions<SpotifyClientOptions> options, IMasterCache cache)
         {
             _clientHandler = new HttpClientHandler(client);
             _options = options.Value;
+            _cache = cache;
+            _accessToken = _cache.GetSpotifyAccessToken();
+
         }
 
-        public Task<List<Track>> GetTracks(string playlistId)
+        public async Task<PlaylistsByUserIdResponse> GetPlaylists(string userId)
         {
-            throw new NotImplementedException();
+            await EnsureAccessTokenAsync();
+
+
+            var endpoint = $"/v1/users/{userId}/playlists?limit=100";
+            var request = new HttpRequestMessage(HttpMethod.Get, endpoint);
+            request.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _accessToken!.AccessToken);
+            var response = await _clientHandler.GetAsync(endpoint, HttpMethod.Get, request);
+
+            response.EnsureSuccessStatusCode();
+
+            var responseBody = await response.Content.ReadAsStringAsync();
+
+            var obj = JsonSerializer.Deserialize<PlaylistsByUserIdResponse>(responseBody, _deserializerOptions);
+            return obj;
+
         }
 
         public async Task TestAccessToken()
@@ -50,8 +71,9 @@ namespace Spotify.SPG
             response.EnsureSuccessStatusCode();
             string responseBody = await response.Content.ReadAsStringAsync();
 
-            _accessToken = JsonSerializer.Deserialize<SpotifyAccessToken>(responseBody);
-            _lastUpdated = DateTimeOffset.UtcNow;
+            _accessToken = JsonSerializer.Deserialize<SpotifyAccessToken>(responseBody, _deserializerOptions);
+            _accessToken!.AquiredAt = DateTimeOffset.UtcNow;
+            _cache.SetSpotifyAccessToken(_accessToken);
         }
 
         private async Task EnsureAccessTokenAsync()
@@ -71,7 +93,7 @@ namespace Spotify.SPG
                 return true;
             }
 
-            return DateTimeOffset.UtcNow >= _lastUpdated.AddSeconds(_accessToken.ExpiresIn);
+            return DateTimeOffset.UtcNow >= _accessToken.AquiredAt.AddSeconds(_accessToken.ExpiresIn);
         }
     }
 }

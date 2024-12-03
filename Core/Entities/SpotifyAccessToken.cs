@@ -5,7 +5,7 @@ using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace Spotify.SPG
+namespace Core.Entities
 {
     public class SpotifyAccessToken
     {
@@ -15,5 +15,6 @@ namespace Spotify.SPG
         public string TokenType { get; set; } = string.Empty;
         [JsonPropertyName("expires_in")]
         public int ExpiresIn { get; set; }
+        public DateTimeOffset AquiredAt { get; set; }
     }
 }

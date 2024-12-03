@@ -17,7 +17,10 @@ namespace Application.SPG.UseCases.Playlists
         {
             public async Task<Unit> Handle(MirrorPlaylistsFromUserIdCommand command, CancellationToken cancellationToken)
             {
-                await client.TestAccessToken();
+                var playlists = client.GetPlaylists(command.Id);
+
+                await Console.Out.WriteLineAsync("AMOUNT OF PLAYLISTS: " + playlists.Result.Items.Count);
+
                 return Unit.Value;
             }
         }

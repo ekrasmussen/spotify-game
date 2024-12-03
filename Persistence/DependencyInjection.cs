@@ -1,7 +1,9 @@
-﻿using Core.Common.Interfaces;
+﻿using Application.SPG.Common.Interfaces;
+using Core.Common.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Persistence.Cache;
 using Persistence.SPG;
 using System;
 using System.Collections.Generic;
@@ -20,7 +22,7 @@ namespace Persistence
                 options.UseNpgsql(configuration.GetConnectionString("SPGConnection"), sqlServerOptions => sqlServerOptions.CommandTimeout(90)));
 
             services.AddScoped<ISPGContext>(provider => provider.GetService<SPGContext>() ?? throw new ArgumentNullException($"{typeof(ISPGContext)} could not be resolved"));
-
+            services.AddSingleton<IMasterCache, MasterCache>();
             return services;
         }
     }

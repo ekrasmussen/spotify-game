@@ -17,6 +17,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Application.SPG\Application.SPG.csproj" />
     <ProjectReference Include="..\Core\Core.csproj" />
+    <ProjectReference Include="..\Spotify.SPG\Spotify.SPG.csproj" />
   </ItemGroup>
 
 </Project>

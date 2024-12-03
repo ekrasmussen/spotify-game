@@ -3,17 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34309.116
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SPG", "SPG\SPG.csproj", "{C76A1C30-2F65-4013-A3C3-CADAEB5C2505}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SPG", "SPG\SPG.csproj", "{C76A1C30-2F65-4013-A3C3-CADAEB5C2505}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Persistence", "Persistence\Persistence.csproj", "{5A0C2624-2913-4FCE-B4AF-2D0FEE44D014}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Persistence", "Persistence\Persistence.csproj", "{5A0C2624-2913-4FCE-B4AF-2D0FEE44D014}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{1673C3FE-9AC0-432D-8928-E3B97A12F35A}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.SPG", "Application.SPG\Application.SPG.csproj", "{5AA0FC83-F12F-4055-B05F-93C5F029963B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core", "Core\Core.csproj", "{1673C3FE-9AC0-432D-8928-E3B97A12F35A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Integrations", "Integrations", "{4E2828B3-29B6-4DFC-B81C-F8E76FDB33F6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spotify.SPG", "Spotify.SPG\Spotify.SPG.csproj", "{022C59DF-A7A1-4963-9596-86B40A3213AF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Spotify.SPG", "Spotify.SPG\Spotify.SPG.csproj", "{022C59DF-A7A1-4963-9596-86B40A3213AF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application.SPG", "Application.SPG\Application.SPG.csproj", "{9C1B7AC1-0E65-4574-B869-7A9BE881EF64}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,14 +33,14 @@ Global
 		{1673C3FE-9AC0-432D-8928-E3B97A12F35A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1673C3FE-9AC0-432D-8928-E3B97A12F35A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1673C3FE-9AC0-432D-8928-E3B97A12F35A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5AA0FC83-F12F-4055-B05F-93C5F029963B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5AA0FC83-F12F-4055-B05F-93C5F029963B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5AA0FC83-F12F-4055-B05F-93C5F029963B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5AA0FC83-F12F-4055-B05F-93C5F029963B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{022C59DF-A7A1-4963-9596-86B40A3213AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{022C59DF-A7A1-4963-9596-86B40A3213AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{022C59DF-A7A1-4963-9596-86B40A3213AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{022C59DF-A7A1-4963-9596-86B40A3213AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C1B7AC1-0E65-4574-B869-7A9BE881EF64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C1B7AC1-0E65-4574-B869-7A9BE881EF64}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C1B7AC1-0E65-4574-B869-7A9BE881EF64}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C1B7AC1-0E65-4574-B869-7A9BE881EF64}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

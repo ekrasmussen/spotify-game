@@ -1,16 +1,10 @@
-﻿using Core.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Spotify.SPG.Responses;
 
 namespace Application.SPG.Interfaces
 {
     public interface ISpotifyClient
     {
-        Task<List<Track>> GetTracks(string playlistId);
+        Task<PlaylistsByUserIdResponse> GetPlaylists(string userId);
         Task RefreshAccessToken();
         Task TestAccessToken();
     }

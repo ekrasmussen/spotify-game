@@ -9,6 +9,7 @@ namespace Spotify.SPG
     public interface IHttpClientHandler
     {
         Task<HttpResponseMessage> GetAsync(string url);
+        Task<HttpResponseMessage> GetAsync(string endpoint, HttpMethod method, HttpRequestMessage content);
         Task<HttpResponseMessage> PostAsync(string url, HttpContent content);
     }
 }

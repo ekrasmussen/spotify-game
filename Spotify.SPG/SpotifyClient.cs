@@ -2,6 +2,7 @@
 using Application.SPG.Common.Options;
 using Application.SPG.Interfaces;
 using Core.Entities;
+using Core.Responses;
 using Microsoft.Extensions.Options;
 using Spotify.SPG.Responses;
 using System;
@@ -27,15 +28,14 @@ namespace Spotify.SPG
             _options = options.Value;
             _cache = cache;
             _accessToken = _cache.GetSpotifyAccessToken();
-
         }
 
-        public async Task<PlaylistsByUserIdResponse> GetPlaylists(string userId)
+        public async Task<List<Playlist>> GetPlaylists(string userId)
         {
             await EnsureAccessTokenAsync();
 
 
-            var endpoint = $"/v1/users/{userId}/playlists?limit=100";
+            var endpoint = $"/v1/users/{userId}/playlists?limit=20";
             var request = new HttpRequestMessage(HttpMethod.Get, endpoint);
             request.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _accessToken!.AccessToken);
             var response = await _clientHandler.GetAsync(endpoint, HttpMethod.Get, request);
@@ -45,9 +45,66 @@ namespace Spotify.SPG
             var responseBody = await response.Content.ReadAsStringAsync();
 
             var obj = JsonSerializer.Deserialize<PlaylistsByUserIdResponse>(responseBody, _deserializerOptions);
-            return obj;
 
+            List<Playlist> result = [];
+
+            foreach(var playlist in obj!.Items)
+            {
+                result.Add(new Playlist { ExternalId = playlist.Id, Name = playlist.Name });
+            }
+
+            return result;
         }
+
+        public async Task<List<Core.Entities.Track>> GetTracksFromPlaylist(string playlistId)
+        {
+            await EnsureAccessTokenAsync();
+
+            var endpoint = $"/v1/playlists/{playlistId}/tracks";
+
+            var request = new HttpRequestMessage(HttpMethod.Get, endpoint);
+            request.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _accessToken!.AccessToken);
+            var response = await _clientHandler.GetAsync(endpoint, HttpMethod.Get, request);
+
+            response.EnsureSuccessStatusCode();
+
+            var responseBody = await response.Content.ReadAsStringAsync();
+
+            var obj = JsonSerializer.Deserialize<TracksFromPlaylistIdResponse>(responseBody, _deserializerOptions);
+
+            List<Core.Entities.Track> tracks = [];
+
+            foreach(var track in obj!.Items)
+            {
+                if(track.Track.IsLocal) //In case of local songs, skip
+                {
+                    continue;
+                }
+
+                Core.Entities.Track trackEntry = new Core.Entities.Track
+                {
+                    ExternalId = track.Track.Id,
+                    AlbumName = track.Track.Album.Name,
+                    Title = track.Track.Name,
+                    IsExplicit = track.Track.Explicit,
+                    AddedOn = DateTimeOffset.UtcNow
+                };
+
+                string artistsWashed = string.Empty;
+
+                foreach(var artist in track.Track.Artists)
+                {
+                    artistsWashed += artist.Name + ", ";
+                }
+                artistsWashed = artistsWashed.TrimEnd(',', ' ');
+
+                trackEntry.ArtistsWashed = artistsWashed;
+                tracks.Add(trackEntry);
+            }
+
+            return tracks;
+        }
+
 
         public async Task TestAccessToken()
         {

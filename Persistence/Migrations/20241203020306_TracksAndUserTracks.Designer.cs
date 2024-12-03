@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Persistence.SPG;
@@ -11,9 +12,11 @@ using Persistence.SPG;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(SPGContext))]
-    partial class SPGContextModelSnapshot : ModelSnapshot
+    [Migration("20241203020306_TracksAndUserTracks")]
+    partial class TracksAndUserTracks
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

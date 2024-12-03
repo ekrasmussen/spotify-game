@@ -13,6 +13,7 @@ namespace Core.Entities
         public string Title { get; set; } = string.Empty;
         public string AlbumName { get; set; } = string.Empty;
         public string ArtistsWashed { get; set; } = string.Empty;
+        public bool IsExplicit { get; set; }
         public DateTimeOffset AddedOn { get; set; }
     }
 }

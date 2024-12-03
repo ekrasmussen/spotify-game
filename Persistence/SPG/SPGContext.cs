@@ -12,5 +12,12 @@ namespace Persistence.SPG
     public class SPGContext(DbContextOptions<SPGContext> options) : DbContext(options), ISPGContext, IValidationContext
     {
         public virtual DbSet<UserUpdate> UserUpdate => Set<UserUpdate>();
+
+        public DbSet<Track> Tracks => Set<Track>();
+        public DbSet<UserTrack> UserTracks => Set<UserTrack>();
+        public async override Task<int> SaveChangesAsync(CancellationToken cancellationToken)
+        {
+            return await base.SaveChangesAsync(cancellationToken);
+        }
     }
 }

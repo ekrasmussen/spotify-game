@@ -11,5 +11,9 @@ namespace Core.Common.Interfaces
     public interface ISPGContext
     {
         DbSet<UserUpdate> UserUpdate { get; }
+        DbSet<Track> Tracks { get; }
+        DbSet<UserTrack> UserTracks { get; }
+
+        public Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }
 }
